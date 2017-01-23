@@ -4,12 +4,11 @@ HPC_data <- read.table(HPC_file,sep = ";", header = TRUE, na.strings="?")
 HPC_data$date_time <- with(HPC_data, as.POSIXct(paste(Date, Time), format="%d/%m/%Y %H:%M:%S"))
 HPC_2days <-subset(HPC_data, date_time >= "2007-02-01 00:00:00" & date_time < "2007-02-03 00:00:00")
 
-
+png("Project/plot3.png", height = 480, width = 480, units = "px")
 with(HPC_2days,plot( date_time,Sub_metering_1, type = "l",ylab = "Energy Sub Metering",xlab = "" ))
 with(HPC_2days,points( date_time,Sub_metering_2, type = "l", col="red",ylab = "Energy Sub Metering",xlab = "" ) )
 with(HPC_2days,points( date_time,Sub_metering_3, col="blue", type = "l" ,ylab = "Energy Sub Metering",xlab = "" ))
 legend("topright", col = c("black","blue", "red"), lty = c(1,1,1),legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"))
 
-dev.copy(png,"Project/plot3.png")
 dev.off()
 if(dev.cur() == 1) dev.new()
